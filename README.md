@@ -4,7 +4,7 @@ Reddit guesser similar to geoguessr - displays image for the user to then guess 
 
 Data imported using python script/json:
 
-
+```
 import praw
 import json
 
@@ -33,3 +33,4 @@ print(posturl_list)
 json.dumps(posturl_list)
 with open('urls.json', 'w', encoding="utf-8") as f:
     json.dump(posturl_list, f, ensure_ascii=False, indent=4)
+```
