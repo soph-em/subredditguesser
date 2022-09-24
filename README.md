@@ -1,38 +1,36 @@
-# create-svelte
+Work in progress.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Reddit guesser similar to geoguessr - displays image for the user to then guess which subreddit it was obtained from.
 
-## Creating a project
+Data imported using python script/json:
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
 ```
+import praw
+import json
 
-## Developing
+reddit = praw.Reddit(
+    client_id="my client id",
+    client_secret="my client secret",
+    user_agent="my user agent",
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+)
+reddit.read_only = True
 
-```bash
-npm run dev
+posturl_list = []
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+top_post = reddit.subreddit(
+    'memes+aww+humansbeingbros+pics+oldschoolcool+catsplayingdnd+funny+adviceanimals+mildlyinteresting+woahdude+foodporn+historyporn+wallpapers+earthport+abandonedporn+liminalspaces+carporn+mapporn+perfecttiming+tumblr+itookapicture+skyporn+astrophotography+spaceporn+cosyplaces+photography').hot(limit=12)
+for post in top_post:
+    data = {}
+    if not '.gif' in post.url and not 'v.redd.it' in post.url:
+        data["image"] = post.url
+        data["subreddit"] = post.subreddit.display_name
+        posturl_list.append(data)
+
+
+print(posturl_list)
+
+json.dumps(posturl_list)
+with open('urls.json', 'w', encoding="utf-8") as f:
+    json.dump(posturl_list, f, ensure_ascii=False, indent=4)
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
