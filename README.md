@@ -2,7 +2,7 @@ Work in progress.
 
 Reddit guesser similar to geoguessr - displays image for the user to then guess which subreddit it was obtained from.
 
-Data imported using python script/json:
+Data from python script:
 
 ```
 import praw
@@ -31,6 +31,10 @@ for post in top_post:
 print(posturl_list)
 
 json.dumps(posturl_list)
-with open('urls.json', 'w', encoding="utf-8") as f:
-    json.dump(posturl_list, f, ensure_ascii=False, indent=4)
+with open('urls.json', 'r', encoding="utf-8") as f:
+    d = json.load(f)
+
+new_data = d + posturl_list
+with open('urls.json', 'w') as f:
+    json.dump(new_data, f)
 ```
