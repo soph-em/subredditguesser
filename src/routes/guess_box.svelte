@@ -1,9 +1,11 @@
-<script>
-	import { object_without_properties } from 'svelte/internal';
+<script lang="ts">
+	// console.log(data);
+	import { each, object_without_properties } from 'svelte/internal';
 	import ButtonAnswer from './buttonAnswer.svelte';
 	import ButtonHint from './buttonHint.svelte';
+	import SubList from './subList.svelte';
 	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
-
+	let userGuesses: string[] = [];
 	let guess = '';
 	let count = 0;
 	let current;
@@ -13,12 +15,13 @@
 		if (guess.toLowerCase().trim() == current['subreddit'].toLowerCase()) {
 			rightGuess = true;
 			hintTitle = true;
-			// setTimeout(() => (rightGuess = false), 1000);
 
-			setTimeout(myCount, 1200);
+			userGuesses = [];
 		} else {
 			wrongGuess = true;
+
 			setTimeout(() => (wrongGuess = false), 500);
+			saveInput(guess);
 			guess = '';
 		}
 	}
@@ -32,36 +35,45 @@
 		hintTitle = true;
 		console.log(current['title']);
 	}
-	// console.log(data);
+
+	const saveInput = (guess) => {
+		userGuesses = [...userGuesses, guess];
+		console.log(userGuesses);
+	};
+
 	let wrongGuess = false;
 	let rightGuess = false;
 	let hintTitle = false;
 </script>
 
-<section>
-	<div class="fixflex border" class:wrongGuess class:rightGuess>
-		<div>
-			{#if hintTitle}
-				<p>{current['title']}</p>
+<section class="sidebar section.dark">
+	<div class="row border" class:wrongGuess class:rightGuess>
+		<div class="column">
+			<div class="hintwidth flex-centre">
+				{#if hintTitle}
+					<p>{current['title']}</p>
+				{:else}
+					<ButtonHint on:click={hint}>Click for hint</ButtonHint>
+					<!-- <button class="button-30 buttonhint" type="button" >Click for hint</button> -->
+				{/if}
+			</div>
+			<div class="constrainImage">
+				<img src={current['image']} alt="Reddit" />
+			</div>
+			<div class="flex-centre centreline">
+				<label for="guess">/r/</label>
+				<input id="guess" bind:value={guess} placeholder="Your guess" />
+			</div>
+
+			{#if rightGuess}
+				<ButtonAnswer on:click={next}>Next</ButtonAnswer>
 			{:else}
-				<!-- COPY THIS -->
-				<ButtonHint on:click={hint}>Click for hint</ButtonHint>
-				<!-- <button class="button-30 buttonhint" type="button" >Click for hint</button> -->
+				<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
 			{/if}
 		</div>
-		<div>
-			<img src={current['image']} alt="Reddit" />
+		<div class="column scroller">
+			<SubList guesses={userGuesses} />
 		</div>
-		<div class="flex-centre centreline">
-			<label for="guess">/r/</label>
-			<input id="guess" bind:value={guess} placeholder="Your guess" />
-		</div>
-
-		{#if rightGuess}
-			<ButtonAnswer on:click={next}>Next</ButtonAnswer>
-		{:else}
-			<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
-		{/if}
 	</div>
 
 	<!-- <p>{current['subreddit']}</p> -->
@@ -71,6 +83,7 @@
 	section {
 		display: flex;
 		flex-direction: column;
+		flex-direction: row;
 
 		align-items: center;
 		justify-content: center;
@@ -82,7 +95,54 @@
 		display: inline-flex;
 		font-family: 'JetBrains Mono', monospace;
 		justify-content: center;
-		width: 350px;
+		/* width: 350px;
+		max-height: 900px; */
+	}
+
+	img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+
+	input {
+		line-height: 25px;
+		font-family: 'JetBrains Mono', monospace;
+		/* box-shadow: 0px 0px 2px 2px #a799b5; */
+	}
+	label {
+		font-weight: lighter;
+		font-size: x-large;
+		text-align: right;
+		/* padding-top: 150px; */
+	}
+
+	.column {
+		display: flex;
+		flex-direction: column;
+		flex-basis: 100%;
+		flex: 1;
+	}
+
+	.row {
+		display: flex;
+		flex-direction: row;
+		/* width: 50%; */
+	}
+	.constrainImage {
+		max-width: 100%;
+		max-height: 100%;
+	}
+	.hintwidth {
+		width: 200px;
+	}
+
+	.sidebar {
+		display: flex;
+		align-self: right;
+		justify-content: right;
+		justify-self: right;
+		flex-direction: row;
+		align-items: flex-start;
 	}
 
 	.border {
@@ -94,20 +154,11 @@
 		transition: all 300ms;
 	}
 
-	img {
-		/* max-height: 500px; */
-		max-width: 500px;
-		min-width: 350px;
-	}
-
-	input {
-		font-family: 'JetBrains Mono', monospace;
-	}
-
 	.wrongGuess {
 		border: 15px solid rgb(176, 35, 0);
 		box-shadow: 9px 7px 5px 0px #a799b5;
 		background: rgb(176, 35, 0);
+		margin: 50px;
 		/* opacity: 20%; */
 	}
 
@@ -115,16 +166,7 @@
 		border: 15px solid rgb(0, 211, 63);
 		box-shadow: 9px 7px 5px 0px #a799b5;
 		background: rgb(0, 211, 63);
-	}
-	input {
-		line-height: 25px;
-		/* box-shadow: 0px 0px 2px 2px #a799b5; */
-	}
-	label {
-		font-weight: lighter;
-		font-size: x-large;
-		text-align: right;
-		/* padding-top: 150px; */
+		margin: 50px;
 	}
 
 	/* .flex-centre > * {
@@ -133,9 +175,11 @@
 		align-content: center;
 	} */
 	.flex-centre {
-		/* display: flex; */
+		/* display: flex;
 		margin: auto;
-		margin-top: 15px;
+		margin-top: 15px; */
+		align-self: center;
+		overflow: hidden;
 	}
 
 	.centreline {
@@ -144,8 +188,31 @@
 		flex-direction: row;
 	}
 
-	.fixflex {
-		display: flex;
-		flex-direction: column;
+	/* SCROLLBAR */
+	.scroller {
+		width: 300px;
+		height: 400px;
+		overflow-y: scroll;
+
+		scrollbar-width: thin;
+	}
+	/* scrollbar firefox */
+	* {
+		scrollbar-width: auto;
+		scrollbar-color: #0047b1;
+	}
+
+	/* scrollbar Chrome, Edge, and Safari */
+	*::-webkit-scrollbar {
+		width: 16px;
+	}
+
+	*::-webkit-scrollbar-track {
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background-color: #00183b;
+		border-radius: 10px;
+		border: 3px solid;
 	}
 </style>

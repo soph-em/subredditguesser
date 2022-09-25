@@ -1,10 +1,16 @@
 <script>
 	// import image from
 	import '../app.css';
+	import Darkmode from './darkmode.svelte';
 	import GuessBox from './guess_box.svelte';
+	import SubList from './subList.svelte';
 </script>
 
-<h1>RedditGuesser</h1>
+<div class="row">
+	<h1>RedditGuesser</h1>
+	<div class="spacer" />
+	<Darkmode />
+</div>
 
 <section class="boxes">
 	<div>
@@ -28,8 +34,21 @@
 	.boxes {
 		max-width: fit-content;
 	}
+	/* .togglebutton {
+		display: flex;
 
+		justify-content: end;
+	} */
+	.spacer {
+		flex: 999;
+	}
+	.row {
+		display: flex;
+		align-content: center;
+	}
 	h1 {
+		/* display: flex;
+		flex-direction: row; */
 		font-family: 'JetBrains Mono', monospace;
 	}
 	/* .row {
