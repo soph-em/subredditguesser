@@ -21,8 +21,8 @@
 		overflow: hidden;
 		padding-left: 16px;
 		padding-right: 16px;
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding-top: 15px;
+		padding-bottom: 15px;
 		position: relative;
 		text-align: left;
 		text-decoration: none;

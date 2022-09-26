@@ -33,6 +33,7 @@
 	}
 	function hint() {
 		hintTitle = true;
+		hintpadding = false;
 		console.log(current['title']);
 	}
 
@@ -44,6 +45,7 @@
 	let wrongGuess = false;
 	let rightGuess = false;
 	let hintTitle = false;
+	let hintpadding = true;
 </script>
 
 <section class="sidebar section.dark">
@@ -53,7 +55,12 @@
 				{#if hintTitle}
 					<p>{current['title']}</p>
 				{:else}
-					<ButtonHint on:click={hint}>Click for hint</ButtonHint>
+					<div class="hintpadding">
+						<ButtonHint on:click={hint}>Click for hint</ButtonHint>
+					</div>
+					<!-- <div class="hintbutton">
+						<ButtonAnswer on:click={hint}>Click for hint</ButtonAnswer>
+					</div> -->
 					<!-- <button class="button-30 buttonhint" type="button" >Click for hint</button> -->
 				{/if}
 			</div>
@@ -80,6 +87,10 @@
 </section>
 
 <style>
+	.hintpadding {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
 	section {
 		display: flex;
 		flex-direction: column;
@@ -180,12 +191,14 @@
 		margin-top: 15px; */
 		align-self: center;
 		overflow: hidden;
+		/* padding-top: 20px; */
 	}
 
 	.centreline {
 		display: flex;
 		align-items: center;
 		flex-direction: row;
+		padding-top: 15px;
 	}
 
 	/* SCROLLBAR */

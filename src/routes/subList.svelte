@@ -18,7 +18,7 @@
 <style>
 	li {
 		text-align: left;
-		font-size: x-small;
+		font-size: small;
 	}
 	ul {
 		/* border: 15px solid rgb(255, 255, 255); */
