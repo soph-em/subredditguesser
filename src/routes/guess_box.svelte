@@ -3,11 +3,12 @@
 	import { each, object_without_properties } from 'svelte/internal';
 	import ButtonAnswer from './buttonAnswer.svelte';
 	import ButtonHint from './buttonHint.svelte';
+	import ButtonSkip from './buttonSkip.svelte';
 	import SubList from './subList.svelte';
 	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
 	let userGuesses: string[] = [];
 	let guess = '';
-	let count = 0;
+	let count = 20;
 	let current;
 	$: current = data[Object.keys(data)[count]];
 
@@ -30,6 +31,7 @@
 		guess = '';
 		rightGuess = false;
 		hintTitle = false;
+		userGuesses = [];
 	}
 	function hint() {
 		hintTitle = true;
@@ -77,7 +79,11 @@
 			{:else}
 				<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
 			{/if}
+			<div class="hintwidth flex-centre">
+				<ButtonSkip on:click={next}>Skip</ButtonSkip>
+			</div>
 		</div>
+
 		<div class="column scroller">
 			<SubList guesses={userGuesses} />
 		</div>
@@ -111,8 +117,8 @@
 	}
 
 	img {
-		max-width: 100%;
-		max-height: 100%;
+		max-width: 500px;
+		max-height: 500px;
 	}
 
 	input {
@@ -140,8 +146,9 @@
 		/* width: 50%; */
 	}
 	.constrainImage {
-		max-width: 100%;
+		max-width: 100vh;
 		max-height: 100%;
+		max-height: 500px;
 	}
 	.hintwidth {
 		width: 200px;
@@ -158,7 +165,7 @@
 
 	.border {
 		border: 15px solid rgb(255, 255, 255);
-		border-bottom: 25px solid rgb(255, 255, 255);
+		border-bottom: 15px solid rgb(255, 255, 255);
 		box-shadow: 9px 7px 5px 0px #a799b5;
 		margin: 50px;
 		background: white;
@@ -203,8 +210,8 @@
 
 	/* SCROLLBAR */
 	.scroller {
-		width: 300px;
-		height: 400px;
+		width: 200px;
+		height: 300px;
 		overflow-y: scroll;
 
 		scrollbar-width: thin;

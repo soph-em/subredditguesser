@@ -4,13 +4,15 @@
 	import Darkmode from './darkmode.svelte';
 	import GuessBox from './guess_box.svelte';
 	import SubList from './subList.svelte';
+	import TestHeader from './testHeader.svelte';
 </script>
 
-<div class="row">
+<TestHeader class="row" />
+<!-- <div class="row">
 	<h1>RedditGuesser</h1>
 	<div class="spacer" />
 	<Darkmode />
-</div>
+</div> -->
 
 <section class="boxes">
 	<div>
