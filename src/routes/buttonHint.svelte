@@ -13,7 +13,7 @@
 		color: #36395a;
 		cursor: pointer;
 		display: inline-flex;
-		font-family: 'JetBrains Mono', monospace;
+		/* font-family: 'JetBrains Mono', monospace; */
 		height: 24px;
 		justify-content: center;
 		line-height: 1;

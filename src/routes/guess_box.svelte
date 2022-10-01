@@ -8,7 +8,7 @@
 	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
 	let userGuesses: string[] = [];
 	let guess = '';
-	let count = 20;
+	let count = 200;
 	let current;
 	$: current = data[Object.keys(data)[count]];
 
@@ -105,12 +105,12 @@
 		align-items: center;
 		justify-content: center;
 		text-align: center;
-		font-family: 'JetBrains Mono', monospace;
+		font-family: 'Noto Sans', monospace;
 	}
 
 	p {
 		display: inline-flex;
-		font-family: 'JetBrains Mono', monospace;
+		font-family: 'Noto Sans', monospace;
 		justify-content: center;
 		/* width: 350px;
 		max-height: 900px; */
@@ -118,12 +118,12 @@
 
 	img {
 		max-width: 500px;
-		max-height: 500px;
+		max-height: 400px;
 	}
 
 	input {
 		line-height: 25px;
-		font-family: 'JetBrains Mono', monospace;
+		font-family: 'Noto Sans', monospace;
 		/* box-shadow: 0px 0px 2px 2px #a799b5; */
 	}
 	label {
@@ -210,8 +210,8 @@
 
 	/* SCROLLBAR */
 	.scroller {
-		width: 200px;
-		height: 300px;
+		width: 250px;
+		height: 100vh;
 		overflow-y: scroll;
 
 		scrollbar-width: thin;
@@ -234,5 +234,9 @@
 		background-color: #00183b;
 		border-radius: 10px;
 		border: 3px solid;
+	}
+
+	::-webkit-scrollbar-corner {
+		background-color: transparent;
 	}
 </style>

@@ -9,7 +9,7 @@
 		color: #ffffff;
 		cursor: pointer;
 		flex: 0 0 auto;
-		font-family: 'JetBrains Mono', monospace;
+		/* font-family: 'JetBrains Mono', monospace; */
 		/* font-size: 1.125rem;
     font-weight: 600;
     line-height: 1.5rem; */

@@ -7,7 +7,7 @@
 	import TestHeader from './testHeader.svelte';
 </script>
 
-<TestHeader class="row" />
+<!-- <TestHeader class="row" /> -->
 <!-- <div class="row">
 	<h1>RedditGuesser</h1>
 	<div class="spacer" />

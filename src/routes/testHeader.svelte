@@ -1,9 +1,9 @@
 <div class="header">
-	<a href="#default" class="logo">Reddit Guesser</a>
+	<a href="/" class="logo">Reddit Guesser</a>
 	<div class="header-right">
-		<a class="active" href="#home">Home</a>
-		<a href="#contact">Contact</a>
-		<a href="#about">About</a>
+		<a class="active" href="/">Home</a>
+		<!-- <a href="#contact">Contact</a> -->
+		<a href="/about">About</a>
 	</div>
 </div>
 
@@ -25,6 +25,7 @@
 		font-size: 18px;
 		line-height: 25px;
 		border-radius: 4px;
+		/* font: noto */
 	}
 
 	/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */

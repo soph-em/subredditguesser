@@ -13,8 +13,8 @@
 		color: #363636;
 		cursor: pointer;
 		/* display: inline-flex; */
-		font-family: BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-			'Fira Sans', 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		/* font-family: BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, */
+		/* 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
 		font-size: 0.75rem;
 		height: 2em;
 		width: 10em;
