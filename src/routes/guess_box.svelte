@@ -55,7 +55,9 @@
 		<div class="column">
 			<div class="hintwidth flex-centre">
 				{#if hintTitle}
-					<p>{current['title']}</p>
+					<div class="titlepadding">
+						<p>{current['title']}</p>
+					</div>
 				{:else}
 					<div class="hintpadding">
 						<ButtonHint on:click={hint}>Click for hint</ButtonHint>
@@ -95,6 +97,10 @@
 <style>
 	.hintpadding {
 		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	.titlepadding {
+		padding-top: 10px;
 		padding-bottom: 20px;
 	}
 	section {
@@ -211,9 +217,9 @@
 	/* SCROLLBAR */
 	.scroller {
 		width: 250px;
-		height: 100vh;
+		max-height: 500px;
 		overflow-y: scroll;
-
+		padding-left: 20px;
 		scrollbar-width: thin;
 	}
 	/* scrollbar firefox */
