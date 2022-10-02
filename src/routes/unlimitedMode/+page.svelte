@@ -4,6 +4,7 @@
 	import GuessBox from '.././guess_box.svelte';
 	import SubList from '.././subList.svelte';
 	import TestHeader from '.././testHeader.svelte';
+	import UnlimitedMode from './unlimitedMode.svelte';
 </script>
 
 <!-- <TestHeader class="row" /> -->
@@ -16,7 +17,7 @@
 <section class="boxes">
 	<div>
 		<h1>Unlimited Mode</h1>
-		<GuessBox />
+		<UnlimitedMode />
 		<!-- <div class="row">
 			<div class="column">
 				<div class="blue-column">Column One</div>

@@ -12,7 +12,17 @@
 	let count = 200;
 	let current;
 	let guesscount = 0;
+
 	$: current = data[Object.keys(data)[count]];
+
+	function limit() {
+		if (guesscount > 9) {
+			console.log('test');
+			lastGuess = true;
+			hintTitle = true;
+			guess = current['subreddit'];
+		}
+	}
 
 	function correct() {
 		if (guess.toLowerCase().trim() == current['subreddit'].toLowerCase()) {
@@ -27,13 +37,16 @@
 			guess = '';
 			console.log(guesscount);
 		}
+		limit();
 	}
 	function next() {
 		count += 1;
 		guess = '';
 		rightGuess = false;
 		hintTitle = false;
+		lastGuess = false;
 		userGuesses = [];
+		guesscount = 0;
 	}
 	function hint() {
 		hintTitle = true;
@@ -48,12 +61,13 @@
 
 	let wrongGuess = false;
 	let rightGuess = false;
+	let lastGuess = false;
 	let hintTitle = false;
 	let hintpadding = true;
 </script>
 
 <section class="sidebar section.dark">
-	<div class="row border" class:wrongGuess class:rightGuess>
+	<div class="row border" class:wrongGuess class:rightGuess class:lastGuess>
 		<div class="column">
 			<Emojis numIncorrect={guesscount} correct={rightGuess} usedHint={hintTitle} />
 			<div class="hintwidth flex-centre">
@@ -65,10 +79,6 @@
 					<div class="hintpadding">
 						<ButtonHint on:click={hint}>Click for hint</ButtonHint>
 					</div>
-					<!-- <div class="hintbutton">
-						<ButtonAnswer on:click={hint}>Click for hint</ButtonAnswer>
-					</div> -->
-					<!-- <button class="button-30 buttonhint" type="button" >Click for hint</button> -->
 				{/if}
 			</div>
 			<div class="constrainImage">
@@ -81,12 +91,14 @@
 
 			{#if rightGuess}
 				<ButtonAnswer on:click={next}>Next</ButtonAnswer>
-			{:else}
+			{:else if lastGuess}
+				<ButtonAnswer on:click={next}>Next Question</ButtonAnswer>
+			{:else if !rightGuess}
 				<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
 			{/if}
-			<div class="hintwidth flex-centre">
+			<!-- <div class="hintwidth flex-centre">
 				<ButtonSkip on:click={next}>Skip</ButtonSkip>
-			</div>
+			</div> -->
 		</div>
 
 		<div class="column scroller">
@@ -193,6 +205,13 @@
 		border: 15px solid rgb(0, 211, 63);
 		box-shadow: 9px 7px 5px 0px #a799b5;
 		background: rgb(0, 211, 63);
+		margin: 50px;
+	}
+
+	.lastGuess {
+		border: 15px solid rgb(89, 89, 89);
+		box-shadow: 9px 7px 5px 0px #a799b5;
+		background: rgb(89, 89, 89);
 		margin: 50px;
 	}
 

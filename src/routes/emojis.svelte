@@ -17,14 +17,18 @@
 	export let numIncorrect;
 	export let usedHint;
 	export let correct;
+	export let lastGuess;
+	console.log(numIncorrect);
 </script>
 
 {#each Array(numIncorrect) as _, index}
-	{guessEmoji[index]}
+	{#if index != numIncorrect - 1}
+		{guessEmoji[index]}
+	{:else if correct && !usedHint}
+		{guessEmoji.right}
+	{:else if correct}
+		{guessEmoji.guess}
+	{:else}
+		{guessEmoji.wrong}
+	{/if}
 {/each}
-
-{#if correct && !usedHint}
-	{guessEmoji.right}
-{:else if correct}
-	{guessEmoji.guess}
-{/if}
