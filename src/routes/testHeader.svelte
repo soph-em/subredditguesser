@@ -15,7 +15,7 @@
 		padding: 20px 10px;
 		/* width: 50vw; */
 		justify-self: center;
-		min-width: 100vh;
+		width: 100vh;
 	}
 
 	/* Style the header links */

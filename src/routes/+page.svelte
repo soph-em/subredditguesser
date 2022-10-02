@@ -1,6 +1,5 @@
 <script>
 	// import image from
-	import '../app.css';
 	import Darkmode from './darkmode.svelte';
 	import GuessBox from './guess_box.svelte';
 	import SubList from './subList.svelte';
