@@ -10,6 +10,12 @@
 			through incorrect items. If you get stuck press the 'Hint' button to reveal the title of the
 			post.
 		</p>
+		<p>
+			For any feedback, comments, or bugs, please message me on <a
+				href="https://github.com/soph-em/"
+				target="_blank">my GitHub</a
+			>
+		</p>
 	</div>
 </div>
 

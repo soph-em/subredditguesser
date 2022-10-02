@@ -6,7 +6,7 @@
 				<!-- <li class="tutorials"><a class="active" href="#">Tutorials</a></li> -->
 				<li class="about"><a href="/about">About</a></li>
 				<!-- <li class="news"><a href="#">Newsletter</a></li> -->
-				<li class="contact"><a href="#">Contact</a></li>
+				<li class="contact"><a href="/unlimitedMode">Contact</a></li>
 			</ul>
 		</div>
 	</header>

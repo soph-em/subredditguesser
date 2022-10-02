@@ -1,0 +1,30 @@
+<script>
+	let guessEmoji = {
+		0: '1️⃣',
+		1: '2️⃣',
+		2: '3️⃣',
+		3: '4️⃣',
+		4: '5️⃣',
+		5: '6️⃣',
+		6: '7️⃣',
+		7: '8️⃣',
+		8: '9️⃣',
+		wrong: '❌',
+		guess: '✅',
+		right: '🌟'
+	};
+
+	export let numIncorrect;
+	export let usedHint;
+	export let correct;
+</script>
+
+{#each Array(numIncorrect) as _, index}
+	{guessEmoji[index]}
+{/each}
+
+{#if correct && !usedHint}
+	{guessEmoji.right}
+{:else if correct}
+	{guessEmoji.guess}
+{/if}

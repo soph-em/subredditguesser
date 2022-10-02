@@ -1,9 +1,9 @@
 <script>
 	// import image from
-	import Darkmode from './darkmode.svelte';
-	import GuessBox from './guess_box.svelte';
-	import SubList from './subList.svelte';
-	import TestHeader from './testHeader.svelte';
+	import Darkmode from '.././darkmode.svelte';
+	import GuessBox from '.././guess_box.svelte';
+	import SubList from '.././subList.svelte';
+	import TestHeader from '.././testHeader.svelte';
 </script>
 
 <!-- <TestHeader class="row" /> -->
@@ -15,7 +15,7 @@
 
 <section class="boxes">
 	<div>
-		<h1>Daily Challenge</h1>
+		<h1>Unlimited Mode</h1>
 		<GuessBox />
 		<!-- <div class="row">
 			<div class="column">

@@ -1,31 +1,29 @@
 <script lang="ts">
 	// console.log(data);
 	import { each, object_without_properties } from 'svelte/internal';
-	import ButtonAnswer from './buttonAnswer.svelte';
-	import ButtonHint from './buttonHint.svelte';
-	import ButtonSkip from './buttonSkip.svelte';
-	import Emojis from './emojis.svelte';
-	import SubList from './subList.svelte';
+	import ButtonAnswer from '.././buttonAnswer.svelte';
+	import ButtonHint from '.././buttonHint.svelte';
+	import ButtonSkip from '.././buttonSkip.svelte';
+	import SubList from '.././subList.svelte';
 	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
 	let userGuesses: string[] = [];
 	let guess = '';
 	let count = 200;
 	let current;
-	let guesscount = 0;
 	$: current = data[Object.keys(data)[count]];
 
 	function correct() {
 		if (guess.toLowerCase().trim() == current['subreddit'].toLowerCase()) {
 			rightGuess = true;
 			hintTitle = true;
+
 			userGuesses = [];
 		} else {
 			wrongGuess = true;
-			guesscount += 1;
+
 			setTimeout(() => (wrongGuess = false), 500);
 			saveInput(guess);
 			guess = '';
-			console.log(guesscount);
 		}
 	}
 	function next() {
@@ -55,7 +53,6 @@
 <section class="sidebar section.dark">
 	<div class="row border" class:wrongGuess class:rightGuess>
 		<div class="column">
-			<Emojis numIncorrect={guesscount} correct={rightGuess} usedHint={hintTitle} />
 			<div class="hintwidth flex-centre">
 				{#if hintTitle}
 					<div class="titlepadding">
