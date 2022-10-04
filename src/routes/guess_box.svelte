@@ -9,7 +9,7 @@
 	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
 	let userGuesses: string[] = [];
 	let guess = '';
-	let count = 200;
+	let count = 0;
 	let current;
 	let guesscount = 0;
 
