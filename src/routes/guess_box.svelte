@@ -31,15 +31,24 @@
 			userGuesses = [];
 		} else {
 			wrongGuess = true;
-			guesscount += 1;
 			setTimeout(() => (wrongGuess = false), 500);
 			saveInput(guess);
 			guess = '';
 			console.log(guesscount);
 		}
+		guesscount += 1;
 		limit();
 	}
+
 	function next() {
+		emojisAll = [
+			...emojisAll,
+			{
+				numIncorrect: guesscount,
+				correct: rightGuess,
+				usedHint: hintTitle
+			}
+		];
 		count += 1;
 		guess = '';
 		rightGuess = false;
@@ -64,7 +73,17 @@
 	let lastGuess = false;
 	let hintTitle = false;
 	let hintpadding = true;
+
+	let emojisAll = [];
 </script>
+
+<dialog open>
+	<div class=" border column">
+		{#each emojisAll as emoji}
+			<Emojis {...emoji} />
+		{/each}
+	</div>
+</dialog>
 
 <section class="sidebar section.dark">
 	<div class="row border" class:wrongGuess class:rightGuess class:lastGuess>
