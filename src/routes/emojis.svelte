@@ -21,14 +21,16 @@
 	console.log(numIncorrect);
 </script>
 
-{#each Array(numIncorrect) as _, index}
-	{#if index != numIncorrect - 1}
-		{guessEmoji[index]}
-	{:else if correct && !usedHint}
-		{guessEmoji.right}
-	{:else if correct}
-		{guessEmoji.guess}
-	{:else}
-		{guessEmoji.wrong}
-	{/if}
-{/each}
+<div>
+	{#each Array(numIncorrect) as _, index}
+		{#if index != numIncorrect - 1}
+			{guessEmoji[index]}
+		{:else if correct && !usedHint}
+			{guessEmoji.right}
+		{:else if correct}
+			{guessEmoji.guess}
+		{:else}
+			{guessEmoji.wrong}
+		{/if}
+	{/each}
+</div>
