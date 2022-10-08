@@ -7,6 +7,7 @@
 	import Emojis from './emojis.svelte';
 	import SubList from './subList.svelte';
 	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
+	import Clipboard from 'svelte-clipboard';
 	let userGuesses: string[] = [];
 	let guess = '';
 	let count = 0;
@@ -20,7 +21,14 @@
 			console.log('test');
 			lastGuess = true;
 			hintTitle = true;
+
 			guess = current['subreddit'];
+		}
+	}
+
+	function guessLimit() {
+		if (count > 2) {
+			displayEmojis = true;
 		}
 	}
 
@@ -38,6 +46,7 @@
 		}
 		guesscount += 1;
 		limit();
+		guessLimit();
 	}
 
 	function next() {
@@ -73,18 +82,33 @@
 	let lastGuess = false;
 	let hintTitle = false;
 	let hintpadding = true;
-
-	let emojisAll = [];
+	let displayEmojis = false;
+	let emojisAll = [
+		{ numIncorrect: 2, correct: true, usedHint: false },
+		{ numIncorrect: 2, correct: true, usedHint: false },
+		{ numIncorrect: 2, correct: true, usedHint: false }
+	];
+	let scoreDiv;
 </script>
 
-<dialog open>
-	<div class=" border column">
+<dialog class="innerdialog" open={displayEmojis || true}>
+	<p>Daily Guess Score</p>
+	<div bind:this={scoreDiv} class=" innerdialog column">
 		{#each emojisAll as emoji}
 			<Emojis {...emoji} />
 		{/each}
+		<button on:click=""">Copy</button>
 	</div>
 </dialog>
-
+<Clipboard
+	text={scoreDiv}
+	let:copy
+	on:copy={() => {
+		alert('Has Copied to Clipboard👏');
+	}}
+>
+	<button on:click={copy}>Copy</button>
+</Clipboard>
 <section class="sidebar section.dark">
 	<div class="row border" class:wrongGuess class:rightGuess class:lastGuess>
 		<div class="column">
@@ -285,5 +309,11 @@
 
 	::-webkit-scrollbar-corner {
 		background-color: transparent;
+	}
+
+	.innerdialog {
+		height: 200px;
+		width: 200px;
+		border: #a799b5;
 	}
 </style>
