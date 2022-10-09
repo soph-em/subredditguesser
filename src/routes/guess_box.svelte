@@ -1,6 +1,6 @@
 <script lang="ts">
 	// console.log(data);
-	import { each, object_without_properties } from 'svelte/internal';
+	import { each, object_without_properties, text } from 'svelte/internal';
 	import ButtonAnswer from './buttonAnswer.svelte';
 	import ButtonHint from './buttonHint.svelte';
 	import ButtonSkip from './buttonSkip.svelte';
@@ -8,6 +8,7 @@
 	import SubList from './subList.svelte';
 	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
 	import Clipboard from 'svelte-clipboard';
+	import { LOGONSERVER } from '$env/static/private';
 	let userGuesses: string[] = [];
 	let guess = '';
 	let count = 0;
@@ -84,7 +85,7 @@
 	let hintpadding = true;
 	let displayEmojis = false;
 	let emojisAll = [
-		{ numIncorrect: 2, correct: true, usedHint: false },
+		{ numIncorrect: 2, correct: true, usedHint: true },
 		{ numIncorrect: 2, correct: true, usedHint: false },
 		{ numIncorrect: 2, correct: true, usedHint: false }
 	];
@@ -92,12 +93,29 @@
 </script>
 
 <dialog class="innerdialog" open={displayEmojis || true}>
-	<p>Daily Guess Score</p>
-	<div bind:this={scoreDiv} class=" innerdialog column">
-		{#each emojisAll as emoji}
-			<Emojis {...emoji} />
-		{/each}
-		<button on:click=""">Copy</button>
+	<p>Daily Challenge Score</p>
+	<div>
+		<div bind:this={scoreDiv} class=" innerdialog column">
+			{#each emojisAll as emoji}
+				<Emojis {...emoji} />
+			{/each}
+		</div>
+		<button
+			on:click={() => {
+				const str = scoreDiv.innerText;
+				navigator.clipboard.writeText(str);
+
+				// const str = Array.from(scoreDiv.children)
+				// 	.filter((x) => x.localName === 'div')
+				// 	.reduce((prev, curr) => prev + curr.innerText + '\n', '');
+				// const aux = document.createElement('textarea');
+				// aux.setAttribute('value', str);
+				// document.body.appendChild(aux);
+				// aux.select();
+				// document.execCommand('copy');
+				// document.body.removeChild(aux);
+			}}>Copy</button
+		>
 	</div>
 </dialog>
 <Clipboard
@@ -315,5 +333,7 @@
 		height: 200px;
 		width: 200px;
 		border: #a799b5;
+		/* white-space: pre-line; */
+		/* white-space: pre-wrap; */
 	}
 </style>
