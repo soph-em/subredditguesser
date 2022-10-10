@@ -8,7 +8,6 @@
 	import SubList from './subList.svelte';
 	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
 	import Clipboard from 'svelte-clipboard';
-	import { LOGONSERVER } from '$env/static/private';
 	let userGuesses: string[] = [];
 	let guess = '';
 	let count = 0;
@@ -94,8 +93,8 @@
 
 <dialog class="innerdialog" open={displayEmojis || true}>
 	<p>Daily Challenge Score</p>
-	<div>
-		<div bind:this={scoreDiv} class=" innerdialog column">
+	<div class=" innerdialog column">
+		<div bind:this={scoreDiv}>
 			{#each emojisAll as emoji}
 				<Emojis {...emoji} />
 			{/each}
@@ -118,15 +117,7 @@
 		>
 	</div>
 </dialog>
-<Clipboard
-	text={scoreDiv}
-	let:copy
-	on:copy={() => {
-		alert('Has Copied to Clipboard👏');
-	}}
->
-	<button on:click={copy}>Copy</button>
-</Clipboard>
+
 <section class="sidebar section.dark">
 	<div class="row border" class:wrongGuess class:rightGuess class:lastGuess>
 		<div class="column">
