@@ -27,7 +27,6 @@
 		margin: 0;
 	}
 	.nav li {
-		/* font-family: 'Oswald', sans-serif; */
 		font-size: 1.2em;
 		line-height: 40px;
 		height: 40px;

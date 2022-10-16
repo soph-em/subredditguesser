@@ -1,5 +1,4 @@
 <script lang="ts">
-	// console.log(data);
 	import { each, object_without_properties, text } from 'svelte/internal';
 	import ButtonAnswer from './buttonAnswer.svelte';
 	import ButtonHint from './buttonHint.svelte';
@@ -103,16 +102,6 @@
 			on:click={() => {
 				const str = scoreDiv.innerText;
 				navigator.clipboard.writeText(str);
-
-				// const str = Array.from(scoreDiv.children)
-				// 	.filter((x) => x.localName === 'div')
-				// 	.reduce((prev, curr) => prev + curr.innerText + '\n', '');
-				// const aux = document.createElement('textarea');
-				// aux.setAttribute('value', str);
-				// document.body.appendChild(aux);
-				// aux.select();
-				// document.execCommand('copy');
-				// document.body.removeChild(aux);
 			}}>Copy</button
 		>
 	</div>
@@ -157,8 +146,6 @@
 			<SubList guesses={userGuesses} />
 		</div>
 	</div>
-
-	<!-- <p>{current['subreddit']}</p> -->
 </section>
 
 <style>
@@ -267,18 +254,9 @@
 		margin: 50px;
 	}
 
-	/* .flex-centre > * {
-		align-self: center;
-		justify-self: center;
-		align-content: center;
-	} */
 	.flex-centre {
-		/* display: flex;
-		margin: auto;
-		margin-top: 15px; */
 		align-self: center;
 		overflow: hidden;
-		/* padding-top: 20px; */
 	}
 
 	.centreline {

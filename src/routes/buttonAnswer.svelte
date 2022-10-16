@@ -9,10 +9,6 @@
 		color: #ffffff;
 		cursor: pointer;
 		flex: 0 0 auto;
-		/* font-family: 'JetBrains Mono', monospace; */
-		/* font-size: 1.125rem;
-    font-weight: 600;
-    line-height: 1.5rem; */
 		padding: 0.75rem 1.2rem;
 		text-align: center;
 		text-decoration: none #6b7280 solid;

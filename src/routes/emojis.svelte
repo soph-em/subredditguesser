@@ -18,7 +18,6 @@
 	export let usedHint;
 	export let correct;
 	export let lastGuess;
-	// console.log(numIncorrect);
 </script>
 
 <div>
