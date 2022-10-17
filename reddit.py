@@ -11,7 +11,7 @@ reddit = praw.Reddit(
 )
 reddit.read_only = True
 
-with open('urls.json', 'r', encoding="utf-8") as f:
+with open('src/lib/urls.json', 'r', encoding="utf-8") as f:
     d = json.load(f)
 
 posturl_list = []

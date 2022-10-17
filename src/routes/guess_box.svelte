@@ -26,7 +26,7 @@
 	}
 
 	function guessLimit() {
-		if (count > 2) {
+		if (count >= 2) {
 			displayEmojis = true;
 		}
 	}
@@ -46,6 +46,7 @@
 		guesscount += 1;
 		limit();
 		guessLimit();
+		pictureLimit();
 	}
 
 	function next() {
@@ -90,7 +91,7 @@
 	let scoreDiv;
 </script>
 
-<dialog class="innerdialog" open={displayEmojis || true}>
+<dialog class="innerdialog" open={displayEmojis || false}>
 	<p>Daily Challenge Score</p>
 	<div class=" innerdialog column">
 		<div bind:this={scoreDiv}>
@@ -110,7 +111,7 @@
 <section class="sidebar section.dark">
 	<div class="row border" class:wrongGuess class:rightGuess class:lastGuess>
 		<div class="column">
-			<Emojis numIncorrect={guesscount} correct={rightGuess} usedHint={hintTitle} />
+			<!-- <Emojis numIncorrect={guesscount} correct={rightGuess} usedHint={hintTitle} /> -->
 			<div class="hintwidth flex-centre">
 				{#if hintTitle}
 					<div class="titlepadding">
@@ -143,6 +144,22 @@
 		</div>
 
 		<div class="column scroller">
+			<!-- <dialog class="innerdialog" open={displayEmojis || true}>
+				<p>Daily Challenge Score</p>
+				<div class=" innerdialog column">
+					<div bind:this={scoreDiv}>
+						{#each emojisAll as emoji}
+							<Emojis {...emoji} />
+						{/each}
+					</div>
+					<button
+						on:click={() => {
+							const str = scoreDiv.innerText;
+							navigator.clipboard.writeText(str);
+						}}>Copy</button
+					>
+				</div>
+			</dialog> -->
 			<SubList guesses={userGuesses} />
 		</div>
 	</div>
@@ -302,6 +319,9 @@
 		height: 200px;
 		width: 200px;
 		border: #a799b5;
+		/* display: flex;
+		flex-direction: column; */
+
 		/* white-space: pre-line; */
 		/* white-space: pre-wrap; */
 	}

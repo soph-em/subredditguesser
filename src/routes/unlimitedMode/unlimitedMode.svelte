@@ -5,7 +5,7 @@
 	import ButtonHint from '.././buttonHint.svelte';
 	import ButtonSkip from '.././buttonSkip.svelte';
 	import SubList from '.././subList.svelte';
-	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
+	import data from '$lib/urls.json';
 	let userGuesses: string[] = [];
 	let guess = '';
 	let count = 200;
