@@ -27,7 +27,7 @@
 
 	function guessLimit() {
 		if (count >= 2) {
-			displayEmojis = true;
+			emojimodal.showModal();
 		}
 	}
 
@@ -46,7 +46,6 @@
 		guesscount += 1;
 		limit();
 		guessLimit();
-		pictureLimit();
 	}
 
 	function next() {
@@ -89,9 +88,11 @@
 		{ numIncorrect: 2, correct: true, usedHint: false }
 	];
 	let scoreDiv;
+
+	let emojimodal;
 </script>
 
-<dialog class="innerdialog" open={displayEmojis || false}>
+<dialog bind:this={emojimodal}>
 	<p>Daily Challenge Score</p>
 	<div class=" innerdialog column">
 		<div bind:this={scoreDiv}>
@@ -166,6 +167,9 @@
 </section>
 
 <style>
+	dialog::backdrop {
+		background-color: rgba(1, 1, 1, 0.767);
+	}
 	.hintpadding {
 		padding-top: 20px;
 		padding-bottom: 20px;
