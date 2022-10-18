@@ -26,7 +26,7 @@
 	}
 
 	function guessLimit() {
-		if (count >= 2) {
+		if (count >= 0) {
 			emojimodal.showModal();
 		}
 	}
@@ -106,12 +106,14 @@
 				navigator.clipboard.writeText(str);
 			}}>Copy</button
 		>
+		<button on:click={() => emojimodal.close()}>Close</button>
 	</div>
 </dialog>
 
 <section class="sidebar section.dark">
 	<div class="row border" class:wrongGuess class:rightGuess class:lastGuess>
 		<div class="column">
+			<h1>Daily Challenge</h1>
 			<!-- <Emojis numIncorrect={guesscount} correct={rightGuess} usedHint={hintTitle} /> -->
 			<div class="hintwidth flex-centre">
 				{#if hintTitle}
@@ -139,28 +141,9 @@
 			{:else if !rightGuess}
 				<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
 			{/if}
-			<!-- <div class="hintwidth flex-centre">
-				<ButtonSkip on:click={next}>Skip</ButtonSkip>
-			</div> -->
 		</div>
 
 		<div class="column scroller">
-			<!-- <dialog class="innerdialog" open={displayEmojis || true}>
-				<p>Daily Challenge Score</p>
-				<div class=" innerdialog column">
-					<div bind:this={scoreDiv}>
-						{#each emojisAll as emoji}
-							<Emojis {...emoji} />
-						{/each}
-					</div>
-					<button
-						on:click={() => {
-							const str = scoreDiv.innerText;
-							navigator.clipboard.writeText(str);
-						}}>Copy</button
-					>
-				</div>
-			</dialog> -->
 			<SubList guesses={userGuesses} />
 		</div>
 	</div>
@@ -247,7 +230,7 @@
 	.border {
 		border: 15px solid rgb(255, 255, 255);
 		border-bottom: 15px solid rgb(255, 255, 255);
-		box-shadow: 9px 7px 5px 0px #a799b5;
+		box-shadow: 9px 7px 5px 0px #77717c;
 		margin: 50px;
 		background: white;
 		transition: all 300ms;
@@ -255,7 +238,7 @@
 
 	.wrongGuess {
 		border: 15px solid rgb(176, 35, 0);
-		box-shadow: 9px 7px 5px 0px #a799b5;
+		box-shadow: 9px 7px 5px 0px #77717c
 		background: rgb(176, 35, 0);
 		margin: 50px;
 		/* opacity: 20%; */
@@ -263,14 +246,14 @@
 
 	.rightGuess {
 		border: 15px solid rgb(0, 211, 63);
-		box-shadow: 9px 7px 5px 0px #a799b5;
+		box-shadow: 9px 7px 5px 0px #77717c
 		background: rgb(0, 211, 63);
 		margin: 50px;
 	}
 
 	.lastGuess {
 		border: 15px solid rgb(89, 89, 89);
-		box-shadow: 9px 7px 5px 0px #a799b5;
+		box-shadow: 9px 7px 5px 0px #77717c
 		background: rgb(89, 89, 89);
 		margin: 50px;
 	}
@@ -320,7 +303,7 @@
 	}
 
 	.innerdialog {
-		height: 200px;
+		height: 300px;
 		width: 200px;
 		border: #a799b5;
 		/* display: flex;
