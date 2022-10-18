@@ -53,6 +53,7 @@
 <section class="sidebar section.dark">
 	<div class="row border" class:wrongGuess class:rightGuess>
 		<div class="column">
+			<h1>Unlimited Mode</h1>
 			<div class="hintwidth flex-centre">
 				{#if hintTitle}
 					<div class="titlepadding">
@@ -172,7 +173,7 @@
 	.border {
 		border: 15px solid rgb(255, 255, 255);
 		border-bottom: 15px solid rgb(255, 255, 255);
-		box-shadow: 9px 7px 5px 0px #a799b5;
+		box-shadow: 9px 7px 5px 0px #77717c;
 		margin: 50px;
 		background: white;
 		transition: all 300ms;
@@ -180,7 +181,7 @@
 
 	.wrongGuess {
 		border: 15px solid rgb(176, 35, 0);
-		box-shadow: 9px 7px 5px 0px #a799b5;
+		box-shadow: 9px 7px 5px 0px #77717c;
 		background: rgb(176, 35, 0);
 		margin: 50px;
 		/* opacity: 20%; */
@@ -188,7 +189,7 @@
 
 	.rightGuess {
 		border: 15px solid rgb(0, 211, 63);
-		box-shadow: 9px 7px 5px 0px #a799b5;
+		box-shadow: 9px 7px 5px 0px #77717c;
 		background: rgb(0, 211, 63);
 		margin: 50px;
 	}

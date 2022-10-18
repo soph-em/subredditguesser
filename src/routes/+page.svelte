@@ -7,7 +7,6 @@
 
 <section class="boxes">
 	<div>
-		<h1>Daily Challenge</h1>
 		<GuessBox />
 	</div>
 </section>

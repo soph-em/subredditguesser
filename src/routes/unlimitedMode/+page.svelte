@@ -16,7 +16,6 @@
 
 <section class="boxes">
 	<div>
-		<h1>Unlimited Mode</h1>
 		<UnlimitedMode />
 		<!-- <div class="row">
 			<div class="column">

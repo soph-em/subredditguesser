@@ -5,16 +5,16 @@
 <div class="section boxes">
 	<div class="column">
 		<h1>How to play</h1>
+
 		<p>
 			Guess the subreddit the image is from. The list on the right gives options and will strike
-			through incorrect items. If you get stuck press the 'Hint' button to reveal the title of the
+			through incorrect guesses. If you get stuck press the 'Hint' button to reveal the title of the
 			post.
 		</p>
+
 		<p>
-			For any feedback, comments, or bugs, please message me on <a
-				href="https://github.com/soph-em/"
-				target="_blank">my GitHub</a
-			>
+			This my first project website as a self-taught programmer. For any feedback, comments, or
+			bugs, please message me on <a href="https://github.com/soph-em/" target="_blank">my GitHub</a>
 		</p>
 	</div>
 </div>
