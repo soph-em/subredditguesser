@@ -12,6 +12,16 @@
 	let count = 0;
 	let current;
 	let guesscount = 0;
+	let wrongGuess = false;
+	let rightGuess = false;
+	let lastGuess = false;
+	let hintTitle = false;
+	let hintpadding = true;
+	let displayEmojis = false;
+	let emojisAll = [];
+	let scoreDiv;
+
+	let emojimodal;
 
 	$: current = data[Object.keys(data)[count]];
 
@@ -34,7 +44,7 @@
 	function correct() {
 		if (guess.toLowerCase().trim() == current['subreddit'].toLowerCase()) {
 			rightGuess = true;
-			hintTitle = true;
+
 			userGuesses = [];
 			guessLimit();
 			emojisAll = [
@@ -45,6 +55,7 @@
 					usedHint: hintTitle
 				}
 			];
+			hintTitle = true;
 		} else {
 			wrongGuess = true;
 			setTimeout(() => (wrongGuess = false), 500);
@@ -75,17 +86,6 @@
 		userGuesses = [...userGuesses, guess];
 		console.log(userGuesses);
 	};
-
-	let wrongGuess = false;
-	let rightGuess = false;
-	let lastGuess = false;
-	let hintTitle = false;
-	let hintpadding = true;
-	let displayEmojis = false;
-	let emojisAll = [];
-	let scoreDiv;
-
-	let emojimodal;
 </script>
 
 <dialog bind:this={emojimodal}>
