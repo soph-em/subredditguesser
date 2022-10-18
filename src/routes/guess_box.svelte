@@ -27,7 +27,6 @@
 
 	function limit() {
 		if (guesscount > 9) {
-			console.log('test');
 			lastGuess = true;
 			hintTitle = true;
 
@@ -129,13 +128,14 @@
 				<label for="guess">/r/</label>
 				<input id="guess" bind:value={guess} placeholder="Your guess" />
 			</div>
-
-			{#if rightGuess}
-				<ButtonAnswer on:click={next}>Next</ButtonAnswer>
-			{:else if lastGuess}
-				<ButtonAnswer on:click={next}>Next Question</ButtonAnswer>
-			{:else if !rightGuess}
-				<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
+			{#if count <= 1}
+				{#if rightGuess}
+					<ButtonAnswer on:click={next}>Next</ButtonAnswer>
+				{:else if lastGuess}
+					<ButtonAnswer on:click={next}>Next Question</ButtonAnswer>
+				{:else if !rightGuess}
+					<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
+				{/if}
 			{/if}
 		</div>
 
@@ -146,6 +146,10 @@
 </section>
 
 <style>
+	button {
+		padding: 3px;
+		margin: 5px;
+	}
 	dialog::backdrop {
 		background-color: rgba(1, 1, 1, 0.767);
 	}
