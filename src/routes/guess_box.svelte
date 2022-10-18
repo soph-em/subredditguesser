@@ -238,7 +238,7 @@
 
 	.wrongGuess {
 		border: 15px solid rgb(176, 35, 0);
-		box-shadow: 9px 7px 5px 0px #77717c
+		box-shadow: 9px 7px 5px 0px #77717c;
 		background: rgb(176, 35, 0);
 		margin: 50px;
 		/* opacity: 20%; */
@@ -246,14 +246,14 @@
 
 	.rightGuess {
 		border: 15px solid rgb(0, 211, 63);
-		box-shadow: 9px 7px 5px 0px #77717c
+		box-shadow: 9px 7px 5px 0px #77717c;
 		background: rgb(0, 211, 63);
 		margin: 50px;
 	}
 
 	.lastGuess {
 		border: 15px solid rgb(89, 89, 89);
-		box-shadow: 9px 7px 5px 0px #77717c
+		box-shadow: 9px 7px 5px 0px #77717c;
 		background: rgb(89, 89, 89);
 		margin: 50px;
 	}
