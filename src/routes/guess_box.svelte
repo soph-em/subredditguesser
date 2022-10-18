@@ -36,6 +36,15 @@
 			rightGuess = true;
 			hintTitle = true;
 			userGuesses = [];
+			guessLimit();
+			emojisAll = [
+				...emojisAll,
+				{
+					numIncorrect: guesscount + 1,
+					correct: rightGuess,
+					usedHint: hintTitle
+				}
+			];
 		} else {
 			wrongGuess = true;
 			setTimeout(() => (wrongGuess = false), 500);
@@ -45,18 +54,9 @@
 		}
 		guesscount += 1;
 		limit();
-		guessLimit();
 	}
 
 	function next() {
-		emojisAll = [
-			...emojisAll,
-			{
-				numIncorrect: guesscount,
-				correct: rightGuess,
-				usedHint: hintTitle
-			}
-		];
 		count += 1;
 		guess = '';
 		rightGuess = false;
@@ -82,11 +82,7 @@
 	let hintTitle = false;
 	let hintpadding = true;
 	let displayEmojis = false;
-	let emojisAll = [
-		{ numIncorrect: 2, correct: true, usedHint: true },
-		{ numIncorrect: 2, correct: true, usedHint: false },
-		{ numIncorrect: 2, correct: true, usedHint: false }
-	];
+	let emojisAll = [];
 	let scoreDiv;
 
 	let emojimodal;
