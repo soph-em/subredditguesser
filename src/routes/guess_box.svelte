@@ -5,7 +5,7 @@
 	import ButtonSkip from './buttonSkip.svelte';
 	import Emojis from './emojis.svelte';
 	import SubList from './subList.svelte';
-	import data from 'C:/Users/sophi/Documents/Coding Moments/RedditScraper/urls.json';
+	import data from '$lib/urls.json';
 	import Clipboard from 'svelte-clipboard';
 	let userGuesses: string[] = [];
 	let guess = '';
