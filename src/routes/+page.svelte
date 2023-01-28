@@ -6,16 +6,15 @@
 </script>
 
 <section class="boxes">
-	<div>
+	<div class="content">
 		<GuessBox />
 	</div>
 </section>
 
 <style>
-	.boxes {
-		max-width: fit-content;
-	}
-	h1 {
-		font-family: 'JetBrains Mono', monospace;
+	.content {
+		width: 100%;
+		display: flex;
+		justify-content: center;
 	}
 </style>

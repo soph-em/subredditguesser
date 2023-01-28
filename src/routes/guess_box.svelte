@@ -128,15 +128,17 @@
 				<label for="guess">/r/</label>
 				<input id="guess" bind:value={guess} placeholder="Your guess" />
 			</div>
-			{#if count <= 1}
-				{#if rightGuess}
-					<ButtonAnswer on:click={next}>Next</ButtonAnswer>
-				{:else if lastGuess}
-					<ButtonAnswer on:click={next}>Next Question</ButtonAnswer>
-				{:else if !rightGuess}
-					<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
+			<div class="flex-centre">
+				{#if count <= 1}
+					{#if rightGuess}
+						<ButtonAnswer on:click={next}>Next</ButtonAnswer>
+					{:else if lastGuess}
+						<ButtonAnswer on:click={next}>Next Question</ButtonAnswer>
+					{:else if !rightGuess}
+						<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
+					{/if}
 				{/if}
-			{/if}
+			</div>
 		</div>
 
 		<div class="column scroller">
@@ -146,6 +148,10 @@
 </section>
 
 <style>
+	.flex-centre {
+		align-self: center;
+		overflow: hidden;
+	}
 	button {
 		padding: 3px;
 		margin: 5px;
@@ -164,7 +170,6 @@
 	section {
 		display: flex;
 		flex-direction: column;
-		flex-direction: row;
 
 		align-items: center;
 		justify-content: center;
@@ -182,7 +187,7 @@
 
 	img {
 		max-width: 500px;
-		max-height: 400px;
+		max-height: 500px;
 	}
 
 	input {
@@ -218,14 +223,14 @@
 		width: 200px;
 	}
 
-	.sidebar {
+	/* .sidebar {
 		display: flex;
 		align-self: right;
 		justify-content: right;
 		justify-self: right;
 		flex-direction: row;
 		align-items: flex-start;
-	}
+	} */
 
 	.border {
 		border: 15px solid rgb(255, 255, 255);
@@ -306,10 +311,5 @@
 		height: 300px;
 		width: 200px;
 		border: #a799b5;
-		/* display: flex;
-		flex-direction: column; */
-
-		/* white-space: pre-line; */
-		/* white-space: pre-wrap; */
 	}
 </style>

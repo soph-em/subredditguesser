@@ -1,68 +1,38 @@
-<div class="header">
-	<a href="/" class="logo">Reddit Guesser</a>
-	<div class="header-right">
-		<a href="/">Home</a>
-		<a href="/unlimitedMode">Unlimited Play Mode</a>
-		<a href="/about">About</a>
-	</div>
+<div class="topDiv">
+	<nav>
+		<a class="name" href="/">Subreddit Guesser</a>
+		<div class="right">
+			<a class="about" href="/about">About</a>
+			<a class="about" href="/unlimitedMode">Unlimited Mode</a>
+		</div>
+	</nav>
 </div>
 
 <style>
-	/* Style the header with a grey background and some padding */
-	.header {
-		overflow: hidden;
-		background-color: #f1f1f1;
-		padding: 20px 10px;
-		/* width: 50vw; */
-		justify-self: center;
-		width: 100vh;
+	.name {
+		margin-right: auto;
+		padding: 0 50px;
 	}
-
-	/* Style the header links */
-	.header a {
-		float: left;
+	.about {
+		padding: 4px 50px;
+	}
+	.topDiv {
+		display: flex;
+		flex-direction: column;
+	}
+	nav {
+		background: rgb(255, 255, 255);
+		display: flex;
+		justify-content: center;
+		padding: 20px;
+	}
+	a {
+		font-size: x-large;
+		text-decoration-color: transparent;
 		color: black;
-		text-align: center;
-		padding: 12px;
-		text-decoration: none;
-		font-size: 18px;
-		line-height: 25px;
-		border-radius: 4px;
-		/* font: noto */
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
 	}
-
-	/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
-	.header a.logo {
-		font-size: 25px;
-		font-weight: bold;
-	}
-
-	/* Change the background color on mouse-over */
-	.header a:hover {
-		background-color: #ddd;
-		color: black;
-	}
-
-	/* Style the active/current link*/
-	.header a.active {
-		background-color: dodgerblue;
-		color: white;
-	}
-
-	/* Float the link section to the right */
-	.header-right {
-		float: right;
-	}
-
-	/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-	@media screen and (max-width: 500px) {
-		.header a {
-			float: none;
-			display: block;
-			text-align: left;
-		}
-		.header-right {
-			float: none;
-		}
+	a:hover {
+		color: rgb(255, 86, 0, 1);
 	}
 </style>

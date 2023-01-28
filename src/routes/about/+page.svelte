@@ -3,41 +3,32 @@
 </script>
 
 <div class="section boxes">
-	<div class="column">
+	<div class="column content">
 		<h1>How to play</h1>
 
 		<p>
 			Guess the subreddit the image is from. The list on the right gives options and will strike
 			through incorrect guesses. If you get stuck press the 'Hint' button to reveal the title of the
 			post.
-		</p>
-
-		<p>
-			This my first project website as a self-taught programmer. For any feedback, comments, or
-			bugs, please message me on <a href="https://github.com/soph-em/" target="_blank">my GitHub</a>
+			<br />
+			<br />
+			Play on daily mode to get a daily challenge and share how you did with friends. Play unlimited
+			mode to have an unlimited amount of guesses and challenges.
 		</p>
 	</div>
 </div>
 
 <style>
-	p {
-		max-width: 500px;
-	}
 	.column {
 		flex-direction: column;
 	}
+	.content {
+		width: 50%;
+	}
 	.section {
-		display: flex;
-		flex-direction: column;
-		flex-direction: row;
-
-		align-items: center;
-		align-self: center;
-		justify-content: center;
 		text-align: center;
 		font-family: 'Noto Sans', monospace;
-	}
-	.boxes {
-		max-width: fit-content;
+		display: flex;
+		justify-content: center;
 	}
 </style>

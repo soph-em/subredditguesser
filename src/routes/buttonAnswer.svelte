@@ -20,6 +20,8 @@
 		-webkit-user-select: none;
 		touch-action: manipulation;
 		width: auto;
+		max-width: 200px;
+		align-items: center;
 	}
 
 	.button-40:hover {

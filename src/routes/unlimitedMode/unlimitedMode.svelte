@@ -8,7 +8,7 @@
 	import data from '$lib/urls.json';
 	let userGuesses: string[] = [];
 	let guess = '';
-	let count = 200;
+	let count = 201;
 	let current;
 	$: current = data[Object.keys(data)[count]];
 
@@ -76,12 +76,13 @@
 				<label for="guess">/r/</label>
 				<input id="guess" bind:value={guess} placeholder="Your guess" />
 			</div>
-
-			{#if rightGuess}
-				<ButtonAnswer on:click={next}>Next</ButtonAnswer>
-			{:else}
-				<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
-			{/if}
+			<div class="flex-centre">
+				{#if rightGuess}
+					<ButtonAnswer on:click={next}>Next</ButtonAnswer>
+				{:else}
+					<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
+				{/if}
+			</div>
 			<div class="hintwidth flex-centre">
 				<ButtonSkip on:click={next}>Skip</ButtonSkip>
 			</div>
@@ -119,8 +120,6 @@
 		display: inline-flex;
 		font-family: 'Noto Sans', monospace;
 		justify-content: center;
-		/* width: 350px;
-		max-height: 900px; */
 	}
 
 	img {
@@ -131,13 +130,11 @@
 	input {
 		line-height: 25px;
 		font-family: 'Noto Sans', monospace;
-		/* box-shadow: 0px 0px 2px 2px #a799b5; */
 	}
 	label {
 		font-weight: lighter;
 		font-size: x-large;
 		text-align: right;
-		/* padding-top: 150px; */
 	}
 
 	.column {
@@ -150,7 +147,6 @@
 	.row {
 		display: flex;
 		flex-direction: row;
-		/* width: 50%; */
 	}
 	.constrainImage {
 		max-width: 100vh;
@@ -184,7 +180,6 @@
 		box-shadow: 9px 7px 5px 0px #77717c;
 		background: rgb(176, 35, 0);
 		margin: 50px;
-		/* opacity: 20%; */
 	}
 
 	.rightGuess {
@@ -194,18 +189,9 @@
 		margin: 50px;
 	}
 
-	/* .flex-centre > * {
-		align-self: center;
-		justify-self: center;
-		align-content: center;
-	} */
 	.flex-centre {
-		/* display: flex;
-		margin: auto;
-		margin-top: 15px; */
 		align-self: center;
 		overflow: hidden;
-		/* padding-top: 20px; */
 	}
 
 	.centreline {
