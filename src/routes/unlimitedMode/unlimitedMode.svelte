@@ -6,11 +6,12 @@
 	import ButtonSkip from '.././buttonSkip.svelte';
 	import SubList from '.././subList.svelte';
 	import data from '$lib/urls.json';
+	import localStore from './localStore';
 	let userGuesses: string[] = [];
 	let guess = '';
-	let count = 201;
+	let count = localStore('count', 1);
 	let current;
-	$: current = data[Object.keys(data)[count]];
+	$: current = data[$count];
 
 	function correct() {
 		if (guess.toLowerCase().trim() == current['subreddit'].toLowerCase()) {
@@ -27,7 +28,7 @@
 		}
 	}
 	function next() {
-		count += 1;
+		$count += 1;
 		guess = '';
 		rightGuess = false;
 		hintTitle = false;

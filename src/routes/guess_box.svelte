@@ -7,9 +7,10 @@
 	import SubList from './subList.svelte';
 	import data from '$lib/urls.json';
 	import Clipboard from 'svelte-clipboard';
+	import localStore from './localStore';
 	let userGuesses: string[] = [];
 	let guess = '';
-	let count = 0;
+	let count = localStore('count', 0);
 	let current;
 	let guesscount = 0;
 	let wrongGuess = false;
@@ -23,7 +24,8 @@
 
 	let emojimodal;
 
-	$: current = data[Object.keys(data)[count]];
+	// $: current = data[Object.keys(data)[$count]];
+	$: current = data[$count];
 
 	function limit() {
 		if (guesscount > 9) {
@@ -35,7 +37,7 @@
 	}
 
 	function guessLimit() {
-		if (count >= 0) {
+		if ($count >= 0) {
 			emojimodal.showModal();
 		}
 	}
@@ -67,7 +69,7 @@
 	}
 
 	function next() {
-		count += 1;
+		$count += 1;
 		guess = '';
 		rightGuess = false;
 		hintTitle = false;
@@ -129,7 +131,7 @@
 				<input id="guess" bind:value={guess} placeholder="Your guess" />
 			</div>
 			<div class="flex-centre">
-				{#if count <= 1}
+				{#if $count <= 1}
 					{#if rightGuess}
 						<ButtonAnswer on:click={next}>Next</ButtonAnswer>
 					{:else if lastGuess}
