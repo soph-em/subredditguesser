@@ -10,7 +10,7 @@
 	import localStore from './localStore';
 	let userGuesses: string[] = [];
 	let guess = '';
-	let count = localStore('count', 0);
+	let imageCount = 0;
 	let current;
 	let guesscount = 0;
 	let wrongGuess = false;
@@ -23,9 +23,31 @@
 	let scoreDiv;
 
 	let emojimodal;
+	let dateTime = localStore('date', '');
+	let emojiStore = localStore('score', '');
 
-	// $: current = data[Object.keys(data)[$count]];
-	$: current = data[$count];
+	const date = new Date();
+
+	// ✅ Reset a Date's time to midnight
+	date.setHours(0, 0, 0, 0);
+
+	// ----------------------------------------------------
+
+	// ✅ Format a date to YYYY-MM-DD (or any other format)
+	function padTo2Digits(num) {
+		return num.toString().padStart(2, '0');
+	}
+
+	function formatDate(date) {
+		return [
+			date.getFullYear(),
+			padTo2Digits(date.getMonth() + 1),
+			padTo2Digits(date.getDate())
+		].join('-');
+	}
+
+	// $: current = data[count];
+	$: current = data[Object.keys(data)[imageCount]];
 
 	function limit() {
 		if (guesscount > 9) {
@@ -37,7 +59,7 @@
 	}
 
 	function guessLimit() {
-		if ($count >= 0) {
+		if (imageCount >= 0) {
 			emojimodal.showModal();
 		}
 	}
@@ -45,7 +67,7 @@
 	function correct() {
 		if (guess.toLowerCase().trim() == current['subreddit'].toLowerCase()) {
 			rightGuess = true;
-
+			$dateTime = formatDate(new Date());
 			userGuesses = [];
 			guessLimit();
 			emojisAll = [
@@ -57,6 +79,8 @@
 				}
 			];
 			hintTitle = true;
+			console.log(emojisAll);
+			// $emojiStore = emojisAll.toString();
 		} else {
 			wrongGuess = true;
 			setTimeout(() => (wrongGuess = false), 500);
@@ -69,7 +93,7 @@
 	}
 
 	function next() {
-		$count += 1;
+		// imageCount += 1;
 		guess = '';
 		rightGuess = false;
 		hintTitle = false;
@@ -131,9 +155,10 @@
 				<input id="guess" bind:value={guess} placeholder="Your guess" />
 			</div>
 			<div class="flex-centre">
-				{#if $count <= 1}
+				{#if imageCount <= 1}
 					{#if rightGuess}
 						<ButtonAnswer on:click={next}>Next</ButtonAnswer>
+						<!-- <p>Come back tomorrow for the next challenge</p> -->
 					{:else if lastGuess}
 						<ButtonAnswer on:click={next}>Next Question</ButtonAnswer>
 					{:else if !rightGuess}

@@ -10,6 +10,7 @@
 	let userGuesses: string[] = [];
 	let guess = '';
 	let count = localStore('count', 1);
+	let dateTime = localStore('date', '');
 	let current;
 	$: current = data[$count];
 
@@ -27,8 +28,29 @@
 			guess = '';
 		}
 	}
+	const date = new Date();
+
+	// ✅ Reset a Date's time to midnight
+	date.setHours(0, 0, 0, 0);
+
+	// ----------------------------------------------------
+
+	// ✅ Format a date to YYYY-MM-DD (or any other format)
+	function padTo2Digits(num) {
+		return num.toString().padStart(2, '0');
+	}
+
+	function formatDate(date) {
+		return [
+			date.getFullYear(),
+			padTo2Digits(date.getMonth() + 1),
+			padTo2Digits(date.getDate())
+		].join('-');
+	}
+
 	function next() {
 		$count += 1;
+		$dateTime += formatDate(new Date());
 		guess = '';
 		rightGuess = false;
 		hintTitle = false;
@@ -125,7 +147,7 @@
 
 	img {
 		max-width: 500px;
-		max-height: 400px;
+		max-height: 500px;
 	}
 
 	input {
