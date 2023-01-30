@@ -19,7 +19,12 @@
 	let hintTitle = false;
 	let hintpadding = true;
 	let displayEmojis = false;
-	let emojisAll = [];
+	// let emojisAll = [];
+	type Emoji = { numIncorrect: number; correct: boolean; usedHint: boolean };
+	let emojisAll = localStore('emojis', [] as Emoji[]);
+	console.log(emojisAll);
+	console.log($emojisAll);
+
 	let scoreDiv;
 
 	let emojimodal;
@@ -66,12 +71,13 @@
 
 	function correct() {
 		if (guess.toLowerCase().trim() == current['subreddit'].toLowerCase()) {
+			console.log('CORRECT HAS RAN');
 			rightGuess = true;
 			$dateTime = formatDate(new Date());
 			userGuesses = [];
 			guessLimit();
-			emojisAll = [
-				...emojisAll,
+			$emojisAll = [
+				...$emojisAll,
 				{
 					numIncorrect: guesscount + 1,
 					correct: rightGuess,
@@ -79,7 +85,7 @@
 				}
 			];
 			hintTitle = true;
-			console.log(emojisAll);
+			console.log($emojisAll);
 			// $emojiStore = emojisAll.toString();
 		} else {
 			wrongGuess = true;
@@ -117,7 +123,7 @@
 	<p>Daily Challenge Score</p>
 	<div class=" innerdialog column">
 		<div bind:this={scoreDiv}>
-			{#each emojisAll as emoji}
+			{#each $emojisAll as emoji}
 				<Emojis {...emoji} />
 			{/each}
 		</div>

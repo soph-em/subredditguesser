@@ -9,7 +9,10 @@ const store = <T>(key: string, fallbackValue: T) => {
 	);
 
 	s.subscribe((value) => {
+		console.log(`SUBSCRIBED: ${key}`);
 		if (browser) {
+			console.log(`SET ITEM: ${key} = ${value}`);
+
 			window.localStorage.setItem(key, JSON.stringify(value));
 		}
 	});
