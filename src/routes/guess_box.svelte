@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { each, object_without_properties, text } from 'svelte/internal';
+	import { each, object_without_properties, onMount, text } from 'svelte/internal';
 	import ButtonAnswer from './buttonAnswer.svelte';
 	import ButtonHint from './buttonHint.svelte';
 	import ButtonSkip from './buttonSkip.svelte';
@@ -8,18 +8,21 @@
 	import data from '$lib/urls.json';
 	import Clipboard from 'svelte-clipboard';
 	import localStore from './localStore';
+
+	import localStoreDated from './localStoreDated';
+
 	let userGuesses: string[] = [];
 	let guess = '';
 	let imageCount = 0;
 	let current;
 	let guesscount = 0;
 	let wrongGuess = false;
-	let rightGuess = false;
+	let rightGuess = localStoreDated('correct', false);
 	let lastGuess = false;
 	let hintTitle = false;
 	let hintpadding = true;
 	let displayEmojis = false;
-	// let emojisAll = [];
+
 	type Emoji = { numIncorrect: number; correct: boolean; usedHint: boolean };
 	let emojisAll = localStore('emojis', [] as Emoji[]);
 	console.log(emojisAll);
@@ -28,17 +31,21 @@
 	let scoreDiv;
 
 	let emojimodal;
-	let dateTime = localStore('date', '');
-	let emojiStore = localStore('score', '');
+	let dateTime = localStoreDated('date', '');
+	let emojiStore = localStoreDated('score', '');
+
+	onMount(() => {
+		if ($rightGuess) {
+			emojimodal.showModal();
+		}
+	});
 
 	const date = new Date();
 
-	// ✅ Reset a Date's time to midnight
 	date.setHours(0, 0, 0, 0);
 
 	// ----------------------------------------------------
 
-	// ✅ Format a date to YYYY-MM-DD (or any other format)
 	function padTo2Digits(num) {
 		return num.toString().padStart(2, '0');
 	}
@@ -51,7 +58,6 @@
 		].join('-');
 	}
 
-	// $: current = data[count];
 	$: current = data[Object.keys(data)[imageCount]];
 
 	function limit() {
@@ -71,37 +77,31 @@
 
 	function correct() {
 		if (guess.toLowerCase().trim() == current['subreddit'].toLowerCase()) {
-			console.log('CORRECT HAS RAN');
-			rightGuess = true;
+			$rightGuess = true;
 			$dateTime = formatDate(new Date());
 			userGuesses = [];
 			guessLimit();
 			$emojisAll = [
-				...$emojisAll,
 				{
 					numIncorrect: guesscount + 1,
-					correct: rightGuess,
+					correct: $rightGuess,
 					usedHint: hintTitle
 				}
 			];
 			hintTitle = true;
-			console.log($emojisAll);
-			// $emojiStore = emojisAll.toString();
 		} else {
 			wrongGuess = true;
 			setTimeout(() => (wrongGuess = false), 500);
 			saveInput(guess);
 			guess = '';
-			console.log(guesscount);
 		}
 		guesscount += 1;
 		limit();
 	}
 
 	function next() {
-		// imageCount += 1;
 		guess = '';
-		rightGuess = false;
+		$rightGuess = false;
 		hintTitle = false;
 		lastGuess = false;
 		userGuesses = [];
@@ -110,12 +110,10 @@
 	function hint() {
 		hintTitle = true;
 		hintpadding = false;
-		console.log(current['title']);
 	}
 
 	const saveInput = (guess) => {
 		userGuesses = [...userGuesses, guess];
-		console.log(userGuesses);
 	};
 </script>
 
@@ -133,12 +131,14 @@
 				navigator.clipboard.writeText(str);
 			}}>Copy</button
 		>
+		<a class="button" href="/unlimitedMode">Unlimited Mode</a>
+
 		<button on:click={() => emojimodal.close()}>Close</button>
 	</div>
 </dialog>
 
 <section class="sidebar section.dark">
-	<div class="row border" class:wrongGuess class:rightGuess class:lastGuess>
+	<div class="row border" class:wrongGuess class:rightGuess={$rightGuess} class:lastGuess>
 		<div class="column">
 			<h1>Daily Challenge</h1>
 			<!-- <Emojis numIncorrect={guesscount} correct={rightGuess} usedHint={hintTitle} /> -->
@@ -162,12 +162,12 @@
 			</div>
 			<div class="flex-centre">
 				{#if imageCount <= 1}
-					{#if rightGuess}
-						<ButtonAnswer on:click={next}>Next</ButtonAnswer>
-						<!-- <p>Come back tomorrow for the next challenge</p> -->
+					{#if $rightGuess}
+						<!-- <ButtonAnswer on:click={next}>Next</ButtonAnswer> -->
+						<p>Come back tomorrow for the next challenge</p>
 					{:else if lastGuess}
 						<ButtonAnswer on:click={next}>Next Question</ButtonAnswer>
-					{:else if !rightGuess}
+					{:else if !$rightGuess}
 						<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
 					{/if}
 				{/if}
@@ -185,9 +185,15 @@
 		align-self: center;
 		overflow: hidden;
 	}
+	.button {
+		padding: 3px;
+		margin: 5px;
+		width: 100px;
+	}
 	button {
 		padding: 3px;
 		margin: 5px;
+		width: 100px;
 	}
 	dialog::backdrop {
 		background-color: rgba(1, 1, 1, 0.767);
@@ -214,8 +220,6 @@
 		display: inline-flex;
 		font-family: 'Noto Sans', monospace;
 		justify-content: center;
-		/* width: 350px;
-		max-height: 900px; */
 	}
 
 	img {
@@ -226,13 +230,11 @@
 	input {
 		line-height: 25px;
 		font-family: 'Noto Sans', monospace;
-		/* box-shadow: 0px 0px 2px 2px #a799b5; */
 	}
 	label {
 		font-weight: lighter;
 		font-size: x-large;
 		text-align: right;
-		/* padding-top: 150px; */
 	}
 
 	.column {
@@ -341,7 +343,7 @@
 	}
 
 	.innerdialog {
-		height: 300px;
+		max-height: 250px;
 		width: 200px;
 		border: #a799b5;
 	}
