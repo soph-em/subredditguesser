@@ -19,7 +19,6 @@ const store = <T>(key: string, fallbackValue: T) => {
 	if (browser) {
 		const savedDate = window.localStorage.getItem('localStorageDate');
 		isToday = dateTime === savedDate ?? false;
-		console.log('is today', isToday, 'date', dateTime, 'saved', savedDate);
 	}
 	const s = writable<T>(
 		browser && window.localStorage.getItem(key) && isToday

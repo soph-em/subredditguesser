@@ -14,7 +14,9 @@
 	let guesscount = 0;
 	let wrongGuess = false;
 	let rightGuess = localStoreDated('correct', false);
-	let lastGuess = false;
+	// let wrongGuess = localStoreDated('incorrect', false);
+	let lastGuess = localStoreDated('incorrect', false);
+	// let lastGuess = false;
 	let hintTitle = false;
 	let hintpadding = true;
 	let displayEmojis = false;
@@ -29,7 +31,7 @@
 
 	// displays modal after daily 10 guesses/correct guess
 	onMount(() => {
-		if ($rightGuess) {
+		if ($rightGuess || $lastGuess) {
 			emojimodal.showModal();
 		}
 	});
@@ -57,16 +59,28 @@
 	//function that limits user to ten guesses
 	function limit() {
 		if (guesscount > 9) {
-			lastGuess = true;
+			$lastGuess = true;
 			hintTitle = true;
 
 			guess = current['subreddit'];
+			$dateTime = formatDate(new Date());
+			userGuesses = [];
+			guessLimit();
+			$emojisAll = [
+				{
+					numIncorrect: guesscount + 1,
+					correct: $rightGuess,
+					usedHint: hintTitle
+				}
+			];
+			console.log('this one limits the counts?');
 		}
 	}
 
 	function guessLimit() {
 		if (imageCount >= 0) {
 			emojimodal.showModal();
+			console.log('also this one might');
 		}
 	}
 	//changes state when user guesses correctly
@@ -89,6 +103,7 @@
 			setTimeout(() => (wrongGuess = false), 500);
 			saveInput(guess);
 			guess = '';
+			console.log('does this else get triggered');
 		}
 		guesscount += 1;
 		limit();
@@ -98,9 +113,10 @@
 		guess = '';
 		$rightGuess = false;
 		hintTitle = false;
-		lastGuess = false;
+		$lastGuess = false;
 		userGuesses = [];
 		guesscount = 0;
+		console.log('does this function get called');
 	}
 	//changes state when user clicks 'hint' button
 	function hint() {
@@ -114,27 +130,35 @@
 </script>
 
 <dialog bind:this={emojimodal}>
-	<p>Daily Challenge Score</p>
+	<p class="modalHeader">Daily Challenge Score</p>
 	<div class=" innerdialog column">
-		<div bind:this={scoreDiv}>
+		<div class="emojiSection" bind:this={scoreDiv}>
 			{#each $emojisAll as emoji}
 				<Emojis {...emoji} />
 			{/each}
 		</div>
-		<button
-			on:click={() => {
-				const str = scoreDiv.innerText;
-				navigator.clipboard.writeText(str);
-			}}>Copy</button
-		>
-		<a class="button" href="/unlimitedMode">Unlimited Mode</a>
+		<div class="modalButtons">
+			<button
+				class="button"
+				on:click={() => {
+					const str = scoreDiv.innerText;
+					navigator.clipboard.writeText(str);
+				}}>Copy</button
+			>
+			<a class="button" href="/unlimitedMode">Unlimited Mode</a>
 
-		<button on:click={() => emojimodal.close()}>Close</button>
+			<button class="button" on:click={() => emojimodal.close()}>Close</button>
+		</div>
 	</div>
 </dialog>
 
 <section class="sidebar section.dark">
-	<div class="row border" class:wrongGuess class:rightGuess={$rightGuess} class:lastGuess>
+	<div
+		class="row border"
+		class:wrongGuess
+		class:rightGuess={$rightGuess}
+		class:lastGuess={$lastGuess}
+	>
 		<div class="column">
 			<h1>Daily Challenge</h1>
 			<!-- <Emojis numIncorrect={guesscount} correct={rightGuess} usedHint={hintTitle} /> -->
@@ -158,11 +182,11 @@
 			</div>
 			<div class="flex-centre">
 				{#if imageCount <= 1}
-					{#if $rightGuess}
+					{#if $rightGuess || $lastGuess}
 						<!-- <ButtonAnswer on:click={next}>Next</ButtonAnswer> -->
 						<p>Come back tomorrow for the next challenge</p>
-					{:else if lastGuess}
-						<ButtonAnswer on:click={next}>Next Question</ButtonAnswer>
+						<!-- {:else if lastGuess}
+						<ButtonAnswer on:click={next}>Next Question</ButtonAnswer> -->
 					{:else if !$rightGuess}
 						<ButtonAnswer on:click={correct}>Submit guess</ButtonAnswer>
 					{/if}
@@ -177,19 +201,70 @@
 </section>
 
 <style>
+	dialog {
+		overflow: none;
+		width: fit-content;
+	}
 	.flex-centre {
 		align-self: center;
 		overflow: hidden;
 	}
+	.modalHeader {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.emojiSection {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 5px 0;
+		font-size: 30px;
+		padding-bottom: 15px;
+		text-align: center;
+	}
+	.modalButtons {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0 20px;
+	}
 	.button {
 		padding: 3px;
 		margin: 5px;
-		width: 100px;
+		/* width: 100px; */
+		border-radius: 4px;
+		background: rgb(239, 247, 255, 1);
+		font-family: 'Noto Sans', sans-serif;
+		font-size: 14px;
+		cursor: pointer;
+		text-align: center;
+		/* color: rgb(255, 86, 0, 1); */
+		color: rgb(89, 89, 89);
+		outline: none;
+		font-weight: bold;
+		border: 2px solid rgb(187, 221, 255);
+		align-self: stretch;
+	}
+	a {
+		text-decoration: none;
+	}
+	a:hover {
+		outline: #00183b;
+	}
+	.button:hover {
+		color: rgb(255, 86, 0, 1);
+		border: 2px solid rgb(161, 206, 255);
 	}
 	button {
 		padding: 3px;
 		margin: 5px;
-		width: 100px;
+		/* width: 100px; */
+		outline: none;
+		border: none;
+	}
+	button:hover {
+		outline: black;
 	}
 	dialog::backdrop {
 		background-color: rgba(1, 1, 1, 0.767);
