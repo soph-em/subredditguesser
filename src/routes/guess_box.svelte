@@ -24,7 +24,7 @@
 	let emojimodal;
 	let dateTime = localStoreDated('date', '');
 	let emojiStore = localStoreDated('score', '');
-	type Emoji = { numIncorrect: number; correct: boolean; usedHint: boolean };
+	type Emoji = { numIncorrect: number; correct: boolean; usedHint: boolean; last: boolean };
 	let emojisAll = localStore('emojis', [] as Emoji[]);
 	// console.log(emojisAll);
 	// console.log($emojisAll);
@@ -58,7 +58,7 @@
 
 	//function that limits user to ten guesses
 	function limit() {
-		if (guesscount > 9) {
+		if (guesscount == 10 && !$rightGuess) {
 			$lastGuess = true;
 			hintTitle = true;
 
@@ -68,9 +68,10 @@
 			guessLimit();
 			$emojisAll = [
 				{
-					numIncorrect: guesscount + 1,
+					numIncorrect: guesscount,
 					correct: $rightGuess,
-					usedHint: hintTitle
+					usedHint: hintTitle,
+					last: $lastGuess
 				}
 			];
 			console.log('this one limits the counts?');
@@ -94,7 +95,8 @@
 				{
 					numIncorrect: guesscount + 1,
 					correct: $rightGuess,
-					usedHint: hintTitle
+					usedHint: hintTitle,
+					last: $lastGuess
 				}
 			];
 			hintTitle = true;
@@ -132,6 +134,7 @@
 <dialog bind:this={emojimodal}>
 	<p class="modalHeader">Daily Challenge Score</p>
 	<div class=" innerdialog column">
+		<p class="modalSubreddit">/r/{current['subreddit']}</p>
 		<div class="emojiSection" bind:this={scoreDiv}>
 			{#each $emojisAll as emoji}
 				<Emojis {...emoji} />
@@ -201,6 +204,9 @@
 </section>
 
 <style>
+	.modalSubreddit {
+		font-size: small;
+	}
 	dialog {
 		overflow: none;
 		width: fit-content;
@@ -219,9 +225,11 @@
 		flex-direction: column;
 		align-items: center;
 		padding: 5px 0;
-		font-size: 30px;
+		/* font-size: 30px; */
+		font-size: small;
 		padding-bottom: 15px;
 		text-align: center;
+		overflow: none;
 	}
 	.modalButtons {
 		display: flex;
@@ -253,8 +261,10 @@
 		outline: #00183b;
 	}
 	.button:hover {
-		color: rgb(255, 86, 0, 1);
-		border: 2px solid rgb(161, 206, 255);
+		/* color: rgb(255, 86, 0, 1); */
+		border: 2px solid rgb(60, 100, 142);
+		background: rgb(110, 183, 255);
+		color: white;
 	}
 	button {
 		padding: 3px;
@@ -291,6 +301,8 @@
 		display: inline-flex;
 		font-family: 'Noto Sans', monospace;
 		justify-content: center;
+		margin: 0;
+		padding: 5px;
 	}
 
 	img {

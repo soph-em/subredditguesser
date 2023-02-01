@@ -17,7 +17,7 @@
 	export let numIncorrect;
 	export let usedHint;
 	export let correct;
-	export let lastGuess;
+	export let last;
 </script>
 
 <div>
@@ -28,7 +28,7 @@
 			{guessEmoji.right}
 		{:else if correct}
 			{guessEmoji.guess}
-		{:else}
+		{:else if last}
 			{guessEmoji.wrong}
 		{/if}
 	{/each}
