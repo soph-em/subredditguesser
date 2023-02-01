@@ -2,15 +2,11 @@
 	import { each, object_without_properties, onMount, text } from 'svelte/internal';
 	import ButtonAnswer from './buttonAnswer.svelte';
 	import ButtonHint from './buttonHint.svelte';
-	import ButtonSkip from './buttonSkip.svelte';
 	import Emojis from './emojis.svelte';
 	import SubList from './subList.svelte';
 	import data from '$lib/urls.json';
-	import Clipboard from 'svelte-clipboard';
 	import localStore from './localStore';
-
 	import localStoreDated from './localStoreDated';
-
 	let userGuesses: string[] = [];
 	let guess = '';
 	let imageCount = 0;
@@ -22,24 +18,22 @@
 	let hintTitle = false;
 	let hintpadding = true;
 	let displayEmojis = false;
-
-	type Emoji = { numIncorrect: number; correct: boolean; usedHint: boolean };
-	let emojisAll = localStore('emojis', [] as Emoji[]);
-	console.log(emojisAll);
-	console.log($emojisAll);
-
 	let scoreDiv;
-
 	let emojimodal;
 	let dateTime = localStoreDated('date', '');
 	let emojiStore = localStoreDated('score', '');
+	type Emoji = { numIncorrect: number; correct: boolean; usedHint: boolean };
+	let emojisAll = localStore('emojis', [] as Emoji[]);
+	// console.log(emojisAll);
+	// console.log($emojisAll);
 
+	// displays modal after daily 10 guesses/correct guess
 	onMount(() => {
 		if ($rightGuess) {
 			emojimodal.showModal();
 		}
 	});
-
+	// date formatting function - lines 37-53
 	const date = new Date();
 
 	date.setHours(0, 0, 0, 0);
@@ -60,6 +54,7 @@
 
 	$: current = data[Object.keys(data)[imageCount]];
 
+	//function that limits user to ten guesses
 	function limit() {
 		if (guesscount > 9) {
 			lastGuess = true;
@@ -74,7 +69,7 @@
 			emojimodal.showModal();
 		}
 	}
-
+	//changes state when user guesses correctly
 	function correct() {
 		if (guess.toLowerCase().trim() == current['subreddit'].toLowerCase()) {
 			$rightGuess = true;
@@ -98,7 +93,7 @@
 		guesscount += 1;
 		limit();
 	}
-
+	//changes state when user clicks next button - main use in unlimited mode, possibly unnecessary in daily mode
 	function next() {
 		guess = '';
 		$rightGuess = false;
@@ -107,6 +102,7 @@
 		userGuesses = [];
 		guesscount = 0;
 	}
+	//changes state when user clicks 'hint' button
 	function hint() {
 		hintTitle = true;
 		hintpadding = false;

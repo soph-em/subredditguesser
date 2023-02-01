@@ -6,11 +6,11 @@
 	import ButtonSkip from '.././buttonSkip.svelte';
 	import SubList from '.././subList.svelte';
 	import data from '$lib/urls.json';
-	import localStore from './localStore';
+	import localStoreDated from '../localStoreDated';
 	let userGuesses: string[] = [];
 	let guess = '';
-	let count = localStore('count', 1);
-	let dateTime = localStore('date', '');
+	let count = localStoreDated('count', 1);
+	let dateTime = localStoreDated('date', '');
 	let current;
 	$: current = data[$count];
 

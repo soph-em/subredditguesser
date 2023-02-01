@@ -2,7 +2,7 @@
 	import UnlimitedMode from './unlimitedMode.svelte';
 </script>
 
-<section class="boxes">
+<section>
 	<div class="content">
 		<UnlimitedMode />
 	</div>

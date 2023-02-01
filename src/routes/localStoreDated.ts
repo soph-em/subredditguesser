@@ -18,7 +18,8 @@ const store = <T>(key: string, fallbackValue: T) => {
 	let isToday = false;
 	if (browser) {
 		const savedDate = window.localStorage.getItem('localStorageDate');
-		isToday = dateTime == savedDate ?? false;
+		isToday = dateTime === savedDate ?? false;
+		console.log('is today', isToday, 'date', dateTime, 'saved', savedDate);
 	}
 	const s = writable<T>(
 		browser && window.localStorage.getItem(key) && isToday
@@ -29,10 +30,10 @@ const store = <T>(key: string, fallbackValue: T) => {
 	s.subscribe((value) => {
 		console.log(`SUBSCRIBED: ${key}`);
 		if (browser) {
-			console.log(`SET ITEM: ${key} = ${value}`);
+			// console.log(`SET ITEM: ${key} = ${value}`);
 
 			window.localStorage.setItem(key, JSON.stringify(value));
-			window.localStorage.setItem('localStorageDate', JSON.stringify(formatDate(new Date())));
+			window.localStorage.setItem('localStorageDate', formatDate(new Date()));
 		}
 	});
 	return s;
