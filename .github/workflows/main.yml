@@ -9,9 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v2 # checkout the repository content
-        with:
-          node-version: 16
+        uses: actions/checkout@v3 # checkout the repository content
+
         
 
       - name: setup python
