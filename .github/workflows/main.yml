@@ -20,11 +20,11 @@ jobs:
 
       - name: install python packages
         run: |
-          ls
+          echo ls
           python -m pip install --upgrade pip
-          ls
+          echo ls
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi 
-          ls
+          echo ls
 
       - name: execute py script # run main.py
         run: python reddit.py
