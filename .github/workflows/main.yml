@@ -27,6 +27,9 @@ jobs:
           echo ls
 
       - name: execute py script # run main.py
+        env:
+          CLIENT_ID: ${{ secrets.PRAW_CLIENT_ID}}
+          CLIENT_SECRET: ${{ secrets.PRAW_CLIENT_SECRET}}
         run: python reddit.py
 
       - name: commit files

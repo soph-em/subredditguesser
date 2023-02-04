@@ -1,11 +1,11 @@
 import praw
 import re
 import json
-import redditSecret
+import os
 reg = re.compile(r".*((\.png)|(\.jpg))")
 reddit = praw.Reddit(
-    client_id=redditSecret.client_id,
-    client_secret=redditSecret.client_secret,
+    client_id=os.environ['CLIENT_ID']
+    client_secret=os.environ['CLIENT_SECRET']
     user_agent="android:com.example.guessr:v1.2.3 (by u/guessrtest)",
 
 )
