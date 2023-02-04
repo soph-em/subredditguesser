@@ -4,8 +4,8 @@ import json
 import os
 reg = re.compile(r".*((\.png)|(\.jpg))")
 reddit = praw.Reddit(
-    client_id=os.environ['CLIENT_ID']
-    client_secret=os.environ['CLIENT_SECRET']
+    client_id=os.environ['CLIENT_ID'],
+    client_secret=os.environ['CLIENT_SECRET'],
     user_agent="android:com.example.guessr:v1.2.3 (by u/guessrtest)",
 
 )
