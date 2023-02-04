@@ -141,7 +141,8 @@
 				class="button"
 				on:click={() => {
 					const str = scoreDiv.innerText;
-					navigator.clipboard.writeText(str);
+					const strDate = str + '\nSubreddit Guesser ' + formatDate(new Date());
+					navigator.clipboard.writeText(strDate);
 				}}>Copy</button
 			>
 			<a class="button" href="/unlimitedMode">Unlimited Mode</a>
