@@ -74,14 +74,12 @@
 					last: $lastGuess
 				}
 			];
-			console.log('this one limits the counts?');
 		}
 	}
 
 	function guessLimit() {
 		if (imageCount >= 0) {
 			emojimodal.showModal();
-			console.log('also this one might');
 		}
 	}
 	//changes state when user guesses correctly
@@ -105,7 +103,6 @@
 			setTimeout(() => (wrongGuess = false), 500);
 			saveInput(guess);
 			guess = '';
-			console.log('does this else get triggered');
 		}
 		guesscount += 1;
 		limit();
@@ -118,7 +115,6 @@
 		$lastGuess = false;
 		userGuesses = [];
 		guesscount = 0;
-		console.log('does this function get called');
 	}
 	//changes state when user clicks 'hint' button
 	function hint() {

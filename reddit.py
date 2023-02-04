@@ -31,5 +31,5 @@ for post in filter(lambda x: reg.search(x.url), top_post):
 print(posturl_list)
 
 new_data = posturl_list
-with open('urls.json', 'w') as f:
+with open('src/lib/urls.json', 'w') as f:
     json.dump(new_data, f)
