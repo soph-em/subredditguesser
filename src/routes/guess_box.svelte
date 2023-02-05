@@ -141,7 +141,8 @@
 				class="button"
 				on:click={() => {
 					const str = scoreDiv.innerText;
-					const strDate = str + '\nSubreddit Guesser ' + formatDate(new Date());
+
+					const strDate = str + ' - ' + formatDate(new Date()) + '\n' + 'redditguesser.pages.dev/';
 					navigator.clipboard.writeText(strDate);
 				}}>Copy</button
 			>
