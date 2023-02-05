@@ -2,7 +2,7 @@ name: run reddit.py
 
 on:
   schedule:
-    - cron: '30 23 * * *'
+    - cron: '0 1 * * *'
 
 jobs:
   build:
