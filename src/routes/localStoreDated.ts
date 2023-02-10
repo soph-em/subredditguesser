@@ -27,7 +27,7 @@ const store = <T>(key: string, fallbackValue: T) => {
 	);
 
 	s.subscribe((value) => {
-		console.log(`SUBSCRIBED: ${key}`);
+		// console.log(`SUBSCRIBED: ${key}`);
 		if (browser) {
 			// console.log(`SET ITEM: ${key} = ${value}`);
 
